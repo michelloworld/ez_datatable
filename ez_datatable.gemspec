@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Mic"]
   s.email       = ["kittiphong.mic@gmail.com"]
   s.homepage    = "https://github.com/michelloworld"
-  s.summary     = "Easy and customizable datatable with your model (Only MySQL for now)."
-  s.description = "Easy and customizable datatable with your model (Only MySQL for now)."
+  s.summary     = "Easy and Customizable datatable for Ruby on Rails (Currently support only MySQL)."
+  s.description = "Easy and Customizable datatable for Ruby on Rails (Currently support only MySQL)."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

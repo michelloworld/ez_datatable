@@ -1,10 +1,10 @@
 class Book < ApplicationRecord
-	include EzDatatable::Model
-	
+  include EzDatatable::Model
+  
   belongs_to :category
 
   def self.datatable_config
-		config = {
+    config = {
       cols: [
         { label: 'Id', attr: 'id' }, # "label" is table header text, "attr" is attribute name of this model
         { label: 'Title', attr: 'title_attr' }, # "title_attr" is an instant method of this model
@@ -38,7 +38,7 @@ class Book < ApplicationRecord
       hide_reset: false, # (optinal) default is false
       search_btn: { label: "Submit", class_name: 'btn btn-primary' }, # (optinal) default label is "Search" and class_name is "btn-sm btn-primary"
     }
-	end
+  end
 
   def datatable_link
     links = {

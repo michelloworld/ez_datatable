@@ -1,0 +1,89 @@
+<div class="datatable">
+	<% if config[:search] %>
+		<div class="search">
+			<form method="get" action="" class="search-form row">
+				<input type="hidden" name="search" value="true" />
+
+				<% config[:search].each_with_index do |col, index| %>
+					<div class="form-group <%= config[:num_cols] ? "col-md-#{12 / config[:num_cols]}" : "col-md-6" %>">
+						<label for="search_<%= col[:attr] %>" class="control-label" style="text-align: left;"><%= col[:label] %></label>
+ 						<% if col[:field] == 'select' %>
+ 							<select 
+ 								col_<%= col[:attr] %>" 
+ 								name="filter[<%= col[:attr] %>]" 
+ 								class="form-control<%= col[:class_name] ? " #{col[:class_name]}" : "" %>"
+ 								<%= col[:data] ? (col[:data] || {}).map { |key, val| "data-#{key}=#{val}" }.join(" ") : "" %>
+ 							>
+ 								<% col[:options].each do |option| %>
+ 									<% if params[:filter] && params[:filter][col[:attr].to_sym].to_s == option.last.to_s %>
+ 										<option value="<%= option.last %>" selected="selected"><%= option.first %></option>
+ 									<% else %>
+ 										<option value="<%= option.last %>"><%= option.first %></option>
+ 									<% end %>
+ 								<% end %>
+ 							</select>
+ 						<% else %>
+ 							<input 
+ 								type="text" 
+ 								id="col_<%= col[:attr] %>" 
+ 								name="filter[<%= col[:attr] %>]" 
+ 								class="form-control<%= col[:class_name] ? " #{col[:class_name]}" : "" %>" 
+ 								<%= col[:data] ? (col[:data] || {}).map { |key, val| "data-#{key}=#{val}" }.join(" ") : "" %>
+ 								value="<%= params[:filter][col[:attr].to_sym] if params[:filter] %>" 
+ 							/>
+ 						<% end %>
+					</div>
+				<% end %>
+
+				<% if !config[:search].empty? %>
+					<div class="col-md-12">
+						<input type="submit" value="<%= config[:search_btn] && config[:search_btn][:label] ? config[:search_btn][:label] : t('ez_datatable.search') %>" class="btn btn-sm <%= config[:search_btn] && config[:search_btn][:class_name] ? config[:search_btn][:class_name] : 'btn-sm btn-primary' %>" />
+						<% if !config.key?(:hide_reset) || config.key?(:hide_reset) && config[:hide_reset] != true %>
+							<a href="<%= request.path %>" class="btn btn-sm btn-primary reset"><%= t('ez_datatable.reset') %></a>
+						<% end %>
+					</div>
+				<% end %>
+			</form>
+		</div>
+	<% end %>
+
+	<div class="table-responsive m-t-20">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<% config[:cols].each do |col| %>
+					  <th><%= col[:label] ? col[:label] : '' %></th>
+					<% end %>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% collections.each do |collection| %>
+					<tr>
+						<% config[:cols].each do |col| %>
+							<% if col[:attr] %>
+								<% if col[:link] %>
+									<td>
+										<a href="<%= collection.send("datatable_link")[col[:link].to_sym] %>" <%= col[:target] ? "target=_blank" : nil %>><%= collection[col[:attr].to_sym] %></a>
+									</td>
+								<% else %>
+									<td><%= EzDatatable::Controller.send(collection, col[:attr]) %></td>
+								<% end %>
+							<% elsif col[:actions] %>
+								<td class="actions">
+									<% col[:actions].each do |action| %>
+										<% if collection.send("datatable_link")[action[:link].to_sym] %>
+											<a href="<%= collection.send("datatable_link")[action[:link].to_sym] %>" <%= action[:target] ? "target=_blank" : nil %> class="<%= action[:class] %> btn-sm"><%= action[:label] %></a>
+										<% end %>
+									<% end %>
+								</td>
+							<% else %>
+								<td>-</td>
+							<% end %>
+						<% end %>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>

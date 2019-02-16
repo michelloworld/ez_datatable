@@ -37,6 +37,7 @@ class Book < ApplicationRecord
       num_cols: 3, # (optinal) default 2
       hide_reset: false, # (optinal) default is false
       search_btn: { label: "Submit", class_name: 'btn btn-primary' }, # (optinal) default label is "Search" and class_name is "btn-sm btn-primary"
+      reset_btn: { label: "Reset", class_name: 'btn btn-danger' }, # (optinal) default label is "Reset" and class_name is "btn-sm btn-primary"
     }
   end
 

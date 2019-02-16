@@ -37,9 +37,12 @@
 
 				<% if !config[:search].empty? %>
 					<div class="col-md-12">
-						<input type="submit" value="<%= config[:search_btn] && config[:search_btn][:label] ? config[:search_btn][:label] : t('ez_datatable.search') %>" class="btn btn-sm <%= config[:search_btn] && config[:search_btn][:class_name] ? config[:search_btn][:class_name] : 'btn-sm btn-primary' %>" />
+						<input type="submit" value="<%= config[:search_btn] && config[:search_btn][:label] ? config[:search_btn][:label] : t('ez_datatable.search') %>" 
+							class="btn btn-sm <%= config[:search_btn] && config[:search_btn][:class_name] ? config[:search_btn][:class_name] : 'btn-sm btn-primary' %>" />
 						<% if !config.key?(:hide_reset) || config.key?(:hide_reset) && config[:hide_reset] != true %>
-							<a href="<%= request.path %>" class="btn btn-sm btn-primary reset"><%= t('ez_datatable.reset') %></a>
+							<a href="<%= request.path %>" class="btn btn-sm <%= config[:reset_btn] && config[:reset_btn][:class_name] ? config[:reset_btn][:class_name] : 'btn-sm btn-primary' %>">
+								<%= config[:reset_btn] && config[:reset_btn][:label] ? config[:reset_btn][:label] : t('ez_datatable.reset') %>
+							</a>
 						<% end %>
 					</div>
 				<% end %>

@@ -13,7 +13,7 @@ module EzDatatable
               # data_type
               if current_config && current_config[:data_type]
                 if current_config[:data_type] == 'integer'
-                  val = val.to_i
+                  val = val.blank? : '' : val.to_i
                 else
                   val = val.to_s
                 end

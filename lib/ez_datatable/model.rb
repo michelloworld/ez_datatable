@@ -21,7 +21,7 @@ module EzDatatable
 
               operator = current_config[:operator] ? current_config[:operator] : ''
 
-              unless val.blank? || val == 0
+              unless val.blank?
                 if operator == 'equal'
                   conditions << ["#{key} = '#{val}'"]
                 elsif operator == 'start_between'

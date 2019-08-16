@@ -29,8 +29,8 @@ module EzDatatable
                 elsif operator == 'end_between'
                   conditions << ["#{key} <= '#{val}'"]
                 elsif operator == 'between'
-                  d_start = Date.strptime("#{val.split(' - ')[0]}", '%m/%d/%Y').to_formatted_s(:db)
-                  d_end = Date.strptime("#{val.split(' - ')[1]}", '%m/%d/%Y').to_formatted_s(:db)
+                  d_start = Date.strptime("#{val.split(' - ')[0]}", '%d/%m/%Y').to_formatted_s(:db)
+                  d_end = Date.strptime("#{val.split(' - ')[1]}", '%d/%m/%Y').to_formatted_s(:db)
                   conditions << ["#{key} between '#{d_start}' AND '#{d_end}'"]
                 else
                   conditions << ["#{key} LIKE '%#{val}%'"]
